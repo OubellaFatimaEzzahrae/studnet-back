@@ -1,5 +1,7 @@
 package com.studnet.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,7 +22,10 @@ public class Course {
     @Column
     private String name;
 
+    //@JsonProperty(access = JsonProperty.Access.READ_ONLY)
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<Student> students; // plusieurs étudiants par cours
+
 }
 

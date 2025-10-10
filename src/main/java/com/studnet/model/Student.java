@@ -1,5 +1,6 @@
 package com.studnet.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,6 +27,7 @@ public class Student {
     private String birthday;
 
     @ManyToOne
-    @JoinColumn(name = "course_id") // FK vers Course
-    private Course course; // chaque étudiant n'a qu'un seul cours
+    @JoinColumn(name = "course_id")
+    @JsonBackReference
+    private Course course;
 }
