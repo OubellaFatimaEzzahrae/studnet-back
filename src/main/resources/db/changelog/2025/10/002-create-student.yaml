@@ -1,0 +1,27 @@
+databaseChangeLog:
+  - changeSet:
+      id: 002
+      author: Fatima Ezzahrae
+      changes:
+        - createTable:
+            tableName: student
+            columns:
+              - column:
+                  name: id
+                  type: INT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: first_name
+                  type: VARCHAR(255)
+              - column:
+                  name: last_name
+                  type: VARCHAR(255)
+              - column:
+                  name: birthday
+                  type: VARCHAR(255)
+              - column:
+                  name: major_id
+                  type: INT

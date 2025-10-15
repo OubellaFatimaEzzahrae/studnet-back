@@ -1,8 +1,7 @@
 databaseChangeLog:
-  - changeSet:
-      id: 0
-      author: admin
-      changes:
-        -
   - include:
-      file: db/changelog/2025/10/10-05-changelog.yaml
+      file: db/changelog/2025/10/001-create-major.yaml
+  - include:
+      file: db/changelog/2025/10/002-create-student.yaml
+  - include:
+      file: db/changelog/2025/10/003-add-fk-student-major.yaml

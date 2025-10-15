@@ -1,6 +1,6 @@
 package com.studnet.controller;
 
-import com.studnet.model.Student;
+import com.studnet.entity.Student;
 import com.studnet.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,26 +30,15 @@ public class StudentController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-
     @PostMapping
-    public ResponseEntity<Student> createStudent(@RequestBody Student student) {
-        Student savedStudent = studentService.saveStudent(student);
-        return new ResponseEntity<>(savedStudent, HttpStatus.CREATED);
+    public ResponseEntity<Student> saveStudent(@RequestBody Student student) {
+    // TODO: Séparer en deux endpoints distincts pour respecter REST :
+    // - POST /students pour création (id null)
+    // - PUT /students/{id} pour mise à jour (id existant)
+        Student saved = studentService.saveStudent(student);
+        HttpStatus status = (student.getId() == null) ? HttpStatus.CREATED : HttpStatus.OK;
+        return new ResponseEntity<>(saved, status);
     }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<Student> updateStudent(@PathVariable int id, @RequestBody Student updatedStudent) {
-        return studentService.getStudentById(id)
-                .map(student -> {
-                    student.setFirstName(updatedStudent.getFirstName());
-                    student.setLastName(updatedStudent.getLastName());
-                    student.setBirthday(updatedStudent.getBirthday());
-                    Student saved = studentService.saveStudent(student);
-                    return ResponseEntity.ok(saved);
-                })
-                .orElseGet(() -> ResponseEntity.notFound().build());
-    }
-
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteStudent(@PathVariable int id) {
@@ -57,10 +46,10 @@ public class StudentController {
         return ResponseEntity.noContent().build();
     }
 
-    @PostMapping("/{studentId}/course/{courseId}")
+   /* @PostMapping("/{studentId}/course/{courseId}")
     public ResponseEntity<Student> assignStudentToCourse(@PathVariable int studentId,
                                                          @PathVariable int courseId) {
         Student updatedStudent = studentService.assignStudentToCourse(studentId, courseId);
         return ResponseEntity.ok(updatedStudent);
-    }
+    }*/
 }

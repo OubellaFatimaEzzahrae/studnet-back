@@ -1,31 +1,30 @@
-package com.studnet.model;
+package com.studnet.entity;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Course {
+public class Major {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column
-    private String name;
+    private String code;
 
+    @Column
+    private String description;
+/*
     //@JsonProperty(access = JsonProperty.Access.READ_ONLY)
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
     @JsonManagedReference
-    private List<Student> students; // plusieurs étudiants par cours
+    private List<Student> students; // plusieurs étudiants par cours*/
 
 }
 

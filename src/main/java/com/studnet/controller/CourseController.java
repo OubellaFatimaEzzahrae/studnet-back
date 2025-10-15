@@ -1,9 +1,7 @@
 package com.studnet.controller;
 
-import com.studnet.model.Course;
-import com.studnet.model.Student;
+import com.studnet.entity.Major;
 import com.studnet.service.CourseService;
-import com.studnet.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,38 +16,31 @@ public class CourseController {
     @Autowired
     private CourseService courseService;
 
-    @Autowired
-    private StudentService studentService;
-
     @GetMapping
-    public ResponseEntity<List<Course>> getAllCourses() {
-        List<Course> courses = courseService.getAllCourses();
-        return ResponseEntity.ok(courses);
+    public ResponseEntity<List<Major>> getAllMajors() {
+        List<Major> majors = courseService.getAllMajors();
+        return ResponseEntity.ok(majors);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Course> getCourseById(@PathVariable int id) {
-        return courseService.getCourseById(id)
+    public ResponseEntity<Major> getMajorById(@PathVariable int id) {
+        return courseService.getMajorById(id)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public ResponseEntity<Course> createCourse(@RequestBody Course course) {
-        Course savedCourse = courseService.saveCourse(course);
-        return new ResponseEntity<>(savedCourse, HttpStatus.CREATED);
+    public ResponseEntity<Major> saveMajor(@RequestBody Major major) {
+        Major savedMajor = courseService.saveCourse(major);
+        return new ResponseEntity<>(savedMajor, HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteCourse(@PathVariable int id) {
-        courseService.deleteCourse(id);
+    public ResponseEntity<Void> deleteMajor(@PathVariable int id) {
+        courseService.deleteMajor(id);
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/{id}/students")
-    public ResponseEntity<List<Student>> getStudentsByCourse(@PathVariable int id) {
-        List<Student> students = courseService.getStudentsByCourseId(id);
-        return ResponseEntity.ok(students);
-    }
+
 
 }

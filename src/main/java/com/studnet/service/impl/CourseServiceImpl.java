@@ -1,7 +1,7 @@
 package com.studnet.service.impl;
 
-import com.studnet.model.Course;
-import com.studnet.model.Student;
+import com.studnet.entity.Major;
+import com.studnet.entity.Student;
 import com.studnet.repository.CourseRepository;
 import com.studnet.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,29 +17,23 @@ public class CourseServiceImpl implements CourseService {
     private CourseRepository courseRepository;
 
     @Override
-    public Course saveCourse(Course course) {
-        return courseRepository.save(course);
+    public Major saveCourse(Major major) {
+        return courseRepository.save(major);
     }
 
     @Override
-    public Optional<Course> getCourseById(int id) {
+    public Optional<Major> getMajorById(int id) {
         return courseRepository.findById(id);
     }
 
     @Override
-    public List<Course> getAllCourses() {
+    public List<Major> getAllMajors() {
         return courseRepository.findAll();
     }
 
     @Override
-    public void deleteCourse(int id) {
+    public void deleteMajor(int id) {
         courseRepository.deleteById(id);
     }
 
-    @Override
-    public List<Student> getStudentsByCourseId(int id) {
-        Optional<Course> course = courseRepository.findById(id);
-        return course.map(Course::getStudents)
-                .orElseThrow(() -> new RuntimeException("Course not found"));
-    }
 }

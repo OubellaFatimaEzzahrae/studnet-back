@@ -1,8 +1,8 @@
 package com.studnet.repository;
 
-import com.studnet.model.Course;
+import com.studnet.entity.Major;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface CourseRepository extends JpaRepository<Course, Integer> {
+public interface CourseRepository extends JpaRepository<Major, Integer> {
 
 }

@@ -1,0 +1,21 @@
+databaseChangeLog:
+  - changeSet:
+      id: 001
+      author: Fatima Ezzahrae
+      changes:
+        - createTable:
+            tableName: major
+            columns:
+              - column:
+                  name: id
+                  type: INT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: code
+                  type: VARCHAR(255)
+              - column:
+                  name: description
+                  type: VARCHAR(255)

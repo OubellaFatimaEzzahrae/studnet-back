@@ -1,6 +1,6 @@
 package com.studnet.service;
 
-import com.studnet.model.Student;
+import com.studnet.entity.Student;
 
 import java.util.List;
 import java.util.Optional;
@@ -11,5 +11,7 @@ public interface StudentService {
     Optional<Student> getStudentById(int id);
     List<Student> getAllStudents();
     void deleteStudent(int id);
+/*
     Student assignStudentToCourse(int studentId, int courseId);
+*/
 }

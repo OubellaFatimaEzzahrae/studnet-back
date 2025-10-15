@@ -1,4 +1,4 @@
-package com.studnet.model;
+package com.studnet.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
@@ -15,7 +15,7 @@ public class Student {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @Column
     private String firstName;
@@ -27,7 +27,7 @@ public class Student {
     private String birthday;
 
     @ManyToOne
-    @JoinColumn(name = "course_id")
+    @JoinColumn(name = "major_id")
     @JsonBackReference
-    private Course course;
+    private Major major;
 }

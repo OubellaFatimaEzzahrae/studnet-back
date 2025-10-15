@@ -1,7 +1,7 @@
 package com.studnet.service.impl;
 
-import com.studnet.model.Course;
-import com.studnet.model.Student;
+import com.studnet.entity.Major;
+import com.studnet.entity.Student;
 import com.studnet.repository.CourseRepository;
 import com.studnet.repository.StudentRepository;
 import com.studnet.service.StudentService;
@@ -21,8 +21,8 @@ public class StudentServiceImpl implements StudentService {
     private CourseRepository courseRepository;
 
     @Override
-    public Student saveStudent(Student student) {
-        return studentRepository.save(student);
+    public List<Student> getAllStudents() {
+        return studentRepository.findAll();
     }
 
     @Override
@@ -31,8 +31,8 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<Student> getAllStudents() {
-        return studentRepository.findAll();
+    public Student saveStudent(Student student) {
+        return studentRepository.save(student);
     }
 
     @Override
@@ -40,24 +40,23 @@ public class StudentServiceImpl implements StudentService {
         studentRepository.deleteById(id);
     }
 
-    @Override
+    /*@Override
     public Student assignStudentToCourse(int studentId, int courseId) {
         Optional<Student> optionalStudent = studentRepository.findById(studentId);
-        Optional<Course> optionalCourse = courseRepository.findById(courseId);
+        Optional<Major> optionalCourse = courseRepository.findById(courseId);
 
         if(optionalStudent.isEmpty() || optionalCourse.isEmpty()) {
             throw new RuntimeException("Student or Course not found");
         }
 
         Student student = optionalStudent.get();
-        Course course = optionalCourse.get();
+        Major major = optionalCourse.get();
 
-        student.setCourse(course);           // côté Many-to-One
-        course.getStudents().add(student);   // côté One-to-Many (mise à jour de la liste)
+        student.setMajor(major);
 
         studentRepository.save(student);
-        courseRepository.save(course);
+        courseRepository.save(major);
 
         return student;
-    }
+    }*/
 }
