@@ -28,6 +28,6 @@ public class Student {
 
     @ManyToOne
     @JoinColumn(name = "major_id")
-    @JsonBackReference
+    //@JsonBackReference
     private Major major;
 }

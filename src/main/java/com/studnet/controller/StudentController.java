@@ -1,5 +1,6 @@
 package com.studnet.controller;
 
+import com.studnet.entity.Major;
 import com.studnet.entity.Student;
 import com.studnet.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,14 +31,30 @@ public class StudentController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    // Création d'un nouvel étudiant
     @PostMapping
     public ResponseEntity<Student> saveStudent(@RequestBody Student student) {
-    // TODO: Séparer en deux endpoints distincts pour respecter REST :
-    // - POST /students pour création (id null)
-    // - PUT /students/{id} pour mise à jour (id existant)
         Student saved = studentService.saveStudent(student);
-        HttpStatus status = (student.getId() == null) ? HttpStatus.CREATED : HttpStatus.OK;
-        return new ResponseEntity<>(saved, status);
+        student.setId(null);
+        return new ResponseEntity<>(saved, HttpStatus.CREATED);
+    }
+
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Student> updateStudent(
+            @PathVariable Integer id,
+            @RequestBody Student student) {
+
+        return studentService.getStudentById(id)
+                .map(existingStudent -> {
+                    existingStudent.setFirstName(student.getFirstName());
+                    existingStudent.setLastName(student.getLastName());
+                    existingStudent.setBirthday(student.getBirthday());
+                    existingStudent.setMajor(student.getMajor());
+                    Student updated = studentService.saveStudent(existingStudent);
+                    return ResponseEntity.ok(updated);
+                })
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")
